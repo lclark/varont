@@ -1,0 +1,102 @@
+#include <stdexcept>
+
+#include "Sequencer.hpp"
+#include "BatchDescriptor.hpp"
+#include "ProcessingSequenceBarrier.hpp"
+#include "ProcessingSequenceBarrier.hpp"
+#include "Util.hpp"
+
+namespace disruptor {
+
+void Sequencer::setGatingSequences(std::vector<Sequence*>& sequences) {
+  gatingSequences_.resize(sequences.size());
+  std::copy(sequences.begin(), sequences.end(), gatingSequences_.begin());
+}
+
+void Sequencer::setGatingSequences(std::vector<Sequence*>&& sequences) {
+  gatingSequences_.resize(sequences.size());
+  std::copy(sequences.begin(), sequences.end(), gatingSequences_.begin());
+}
+
+ProcessingSequenceBarrier&& Sequencer::newBarrier(std::vector<Sequence*>& sequencesToTrack) {
+  /* XXX: Returning ProcessingSequenceBarrier when SequenceBarrier
+     expected.  This should cause a memory leak. */
+  return std::move(ProcessingSequenceBarrier(waitStrategy_, cursor_, sequencesToTrack));
+}
+
+ProcessingSequenceBarrier&& Sequencer::newBarrier(std::vector<Sequence*>&& sequencesToTrack) {
+  /* XXX: Returning ProcessingSequenceBarrier when SequenceBarrier
+     expected.  This should cause a memory leak. */
+  return std::move(ProcessingSequenceBarrier(waitStrategy_, cursor_, sequencesToTrack));
+}
+
+BatchDescriptor Sequencer::newBatchDescriptor(const int size) {
+  return BatchDescriptor(std::min(size, claimStrategy_.getBufferSize()));
+}
+
+bool Sequencer::hasAvailableCapacity(const int availableCapacity) {
+  return claimStrategy_.hasAvailableCapacity(availableCapacity, gatingSequences_);
+}
+
+long Sequencer::next() {
+  if (gatingSequences_.empty()) {
+    throw std::out_of_range("gatingSequences must be set before claiming sequences");
+  }
+
+  return claimStrategy_.incrementAndGet(gatingSequences_);
+}
+
+long Sequencer::tryNext(const int availableCapacity) throw(InsufficientCapacityException, std::out_of_range) {
+  if (gatingSequences_.empty()) {
+    throw std::out_of_range("gatingSequences must be set before claiming sequences");
+  }
+        
+  if (availableCapacity < 1) {
+    throw std::out_of_range("Available capacity must be greater than 0");
+  }
+        
+  return claimStrategy_.checkAndIncrement(availableCapacity, 1, gatingSequences_);
+}
+
+BatchDescriptor& Sequencer::next(BatchDescriptor& batchDescriptor) {
+  if (gatingSequences_.empty()) {
+    throw std::out_of_range("gatingSequences must be set before claiming sequences");
+  }
+
+  const long sequence = claimStrategy_.incrementAndGet(batchDescriptor.getSize(), gatingSequences_);
+  batchDescriptor.setEnd(sequence);
+  return batchDescriptor;
+}
+
+long Sequencer::claim(const long sequence) {
+  if (gatingSequences_.empty()) {
+    throw std::out_of_range("gatingSequences must be set before claiming sequences");
+  }
+
+  claimStrategy_.setSequence(sequence, gatingSequences_);
+  return sequence;
+}
+
+/* Inlined: void Sequencer::publish(final long sequence) */
+
+void Sequencer::publish(BatchDescriptor& batchDescriptor) {
+  publish(batchDescriptor.getEnd(), batchDescriptor.getSize());
+}
+
+void Sequencer::forcePublish(const long sequence) {
+  cursor_.set(sequence);
+  waitStrategy_.signalAllWhenBlocking();
+}
+
+void Sequencer::publish(const long sequence, const int batchSize) {
+  claimStrategy_.serialisePublishing(sequence, cursor_, batchSize);
+  waitStrategy_.signalAllWhenBlocking();
+}
+
+const long Sequencer::remainingCapacity() {
+  long consumed = util::getMinimumSequence(gatingSequences_);
+  long produced = cursor_.get();
+  return getBufferSize() - (produced - consumed);
+}
+
+}
