@@ -31,7 +31,22 @@ public:
     }
   }
 
-  /* bool await(std::chrono::duration ...) { } */
+  /**
+   * Causes the current thread to wait until the latch has counted
+   * down to zero, or the specified waiting time elapses.
+   *
+   * @return true if the count reached zero and false if the waiting time elapsed before the count reached zero.
+   */
+  bool await(std::chrono::milliseconds duration) {
+    std::unique_lock<std::mutex> lock(m_);
+    if (0 < count_) {
+      return std::cv_status::no_timeout == cond_.wait_for(lock, duration);
+    }
+    else {
+      /* count reached zero */
+      return true;
+    }
+  }
 
   /**
    * Decrement the count of the latch, releasing all waiting threads

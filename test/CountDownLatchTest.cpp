@@ -39,6 +39,26 @@ TEST_F(CountDownLatchTest, NoWaitInitialCountZero) {
   thread0.join();
 }
 
+TEST_F(CountDownLatchTest, NoWaitInitialCountZeroWithinTimeout) {
+  CountDownLatch latch(0);
+  EXPECT_EQ(0, latch.getCount());
+
+  bool done = false;
+
+  std::thread thread0([&] {
+      /* await should return immediately, timeout ineffective. */
+      ASSERT_TRUE(latch.await(std::chrono::seconds(10)));
+      done = true;
+    });
+
+  /* Give thread0 enough time to have started before we proceed. */
+  std::this_thread::sleep_for(std::chrono::milliseconds(5));
+
+  EXPECT_TRUE(done);
+
+  thread0.join();
+}
+
 TEST_F(CountDownLatchTest, SingleThreadLatchCoordination) {
   CountDownLatch latch(1);
   EXPECT_EQ(1, latch.getCount());
@@ -59,6 +79,58 @@ TEST_F(CountDownLatchTest, SingleThreadLatchCoordination) {
 
   /* Give thread0 enough time to respond to the condition */
   std::this_thread::sleep_for(std::chrono::milliseconds(5));
+
+  EXPECT_TRUE(done);
+
+  thread0.join();
+}
+
+TEST_F(CountDownLatchTest, SingleThreadLatchCoordinationWithinTimeout) {
+  CountDownLatch latch(1);
+  EXPECT_EQ(1, latch.getCount());
+
+  std::atomic_bool done(false);
+
+  std::thread thread0([&] {
+      /* the latch should be released long before this times out */
+      ASSERT_TRUE(latch.await(std::chrono::seconds(10)));
+      done = true;
+    });
+
+  /* Give thread0 enough time to have started before we proceed. */
+  std::this_thread::sleep_for(std::chrono::milliseconds(5));
+
+  EXPECT_FALSE(done);
+
+  latch.countDown();
+
+  /* Give thread0 enough time to respond to the condition */
+  std::this_thread::sleep_for(std::chrono::milliseconds(5));
+
+  EXPECT_TRUE(done);
+
+  thread0.join();
+}
+
+TEST_F(CountDownLatchTest, SingleThreadLatchCoordinationWithTimeout) {
+  CountDownLatch latch(1);
+  EXPECT_EQ(1, latch.getCount());
+
+  std::atomic_bool done(false);
+
+  std::thread thread0([&] {
+      /* the latch will not be released */
+      ASSERT_FALSE(latch.await(std::chrono::seconds(1)));
+      done = true;
+    });
+
+  /* Give thread0 enough time to have started before we proceed. */
+  std::this_thread::sleep_for(std::chrono::milliseconds(5));
+
+  EXPECT_FALSE(done);
+
+  /* Give thread0 enough time to timeout */
+  std::this_thread::sleep_for(std::chrono::seconds(2));
 
   EXPECT_TRUE(done);
 
