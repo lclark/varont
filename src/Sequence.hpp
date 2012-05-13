@@ -31,7 +31,9 @@ public:
     set(value);
   }
 
-  bool compareAndSet(long expectedValue, long newValue) {
+  /* Made virtual for multithreadedclaimstrategytest's Sequence_
+   * class.  Review and come up with an alternative test. */
+  virtual bool compareAndSet(long expectedValue, long newValue) {
     return value_.compare_exchange_strong(expectedValue, newValue);
   }
 

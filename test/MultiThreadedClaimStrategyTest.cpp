@@ -156,7 +156,8 @@ class ClaimRunnable {
   std::vector<Sequence*>& dependentSequences_;
 
 public:
-  ClaimRunnable(MultiThreadedClaimStrategy& claimStrategy, CyclicBarrier& barrier, std::atomic_long claimed[], std::vector<Sequence*>& dependentSequences)
+  ClaimRunnable(MultiThreadedClaimStrategy& claimStrategy, CyclicBarrier& barrier,
+                std::atomic_long claimed[], std::vector<Sequence*>& dependentSequences)
     : claimStrategy_(claimStrategy)
     , barrier_(barrier)
     , claimed_(claimed)
@@ -179,7 +180,7 @@ TEST_F(MultiThreadedClaimStrategyTest, shouldOnlyClaimWhatsAvailable) {
   Sequence dependentSequence;
   std::vector<Sequence*> dependentSequences = { &dependentSequence };
 
-  for (int j = 0; j < 10000; ++j) {
+  for (int j = 0; j < 1000; ++j) {
     int numThreads = BUFFER_SIZE * 2;
     MultiThreadedClaimStrategy claimStrategy(BUFFER_SIZE);
     CyclicBarrier barrier(numThreads);
@@ -208,6 +209,87 @@ TEST_F(MultiThreadedClaimStrategyTest, shouldOnlyClaimWhatsAvailable) {
   }
 }
 
+class Sequence_ : public Sequence {
+  std::atomic_bool* threadSequences_;
+
+ public:
+  Sequence_(const long initialValue, std::atomic_bool threadSequences[])
+      : Sequence(initialValue)
+      , threadSequences_(threadSequences)
+  {}
+
+  bool compareAndSet(long expectedValue, long newValue) {
+    threadSequences_[(int)newValue] = true;
+    return Sequence::compareAndSet(expectedValue, newValue);
+  }
+};
+
+TEST_F(MultiThreadedClaimStrategyTest, shouldSerialisePublishingOnTheCursorWhenTwoThreadsArePublishing) {
+  Sequence dependentSequence(Sequencer::INITIAL_CURSOR_VALUE);
+  std::vector<Sequence*> dependentSequences = { &dependentSequence };
+
+  std::atomic_bool threadSequences[2];
+  threadSequences[0] = false;
+  threadSequences[1] = false;
+
+  CountDownLatch orderingLatch(1);
+  Sequence_ cursor(Sequencer::INITIAL_CURSOR_VALUE, threadSequences);
+
+  std::thread publisherOne([&] {
+      long sequence = claimStrategy.incrementAndGet(dependentSequences);
+      orderingLatch.countDown();
+
+      std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+      claimStrategy.serialisePublishing(sequence, cursor, 1);
+    });
+
+  std::thread publisherTwo([&] {
+      orderingLatch.await();
+
+      long sequence = claimStrategy.incrementAndGet(dependentSequences);
+      claimStrategy.serialisePublishing(sequence, cursor, 1);
+    });
+
+  publisherOne.join();
+  publisherTwo.join();
+
+  ASSERT_TRUE(threadSequences[0]);
+  ASSERT_TRUE(threadSequences[1]);
+}
+
+TEST_F(MultiThreadedClaimStrategyTest, shouldSerialisePublishingOnTheCursorWhenTwoThreadsArePublishingWithBatches) {
+  std::vector<Sequence*> dependentSequences = { };
+  Sequence cursor(Sequencer::INITIAL_CURSOR_VALUE);
+
+  CountDownLatch orderingLatch(2);
+  const int iterations = 1000000;
+  const int batchSize = 44;
+
+  std::thread publisherOne([&] {
+      int counter = iterations;
+      while (-1 != --counter) {
+        const long sequence = claimStrategy.incrementAndGet(batchSize, dependentSequences);
+        claimStrategy.serialisePublishing(sequence, cursor, batchSize);
+      }
+      orderingLatch.countDown(); 
+    });
+
+  std::thread publisherTwo([&] {
+      int counter = iterations;
+      while (-1 != --counter) {
+        const long sequence = claimStrategy.incrementAndGet(batchSize, dependentSequences);
+        claimStrategy.serialisePublishing(sequence, cursor, batchSize);
+      }
+      orderingLatch.countDown();
+    });
+
+  publisherOne.detach();
+  publisherTwo.detach();
+
+  /* should not timeout, the threads should complete their work. */
+  ASSERT_TRUE(orderingLatch.await(std::chrono::seconds(10)));
+}
 
 }
 }
