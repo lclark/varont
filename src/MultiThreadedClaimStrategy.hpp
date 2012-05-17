@@ -3,13 +3,12 @@
 
 #include <stdexcept>
 
-#include "ClaimStrategy.hpp"
 #include "AbstractMultithreadedClaimStrategy.hpp"
 
 namespace disruptor {
 
 class MultiThreadedClaimStrategy
-  : public AbstractMultithreadedClaimStrategy
+    : public AbstractMultithreadedClaimStrategy
 {
   static const int RETRIES = 1000;
 
