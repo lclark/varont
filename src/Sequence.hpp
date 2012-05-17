@@ -23,7 +23,7 @@ public:
     return value_.load();
   }
 
-  void set(const long value) {
+  virtual void set(const long value) {
     value_.store(value);
   }
 

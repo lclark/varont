@@ -4,7 +4,7 @@ ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
 GTESTLIBS = -lgtest_main -lgtest -pthread
 AM_CXXFLAGS := @AM_CXXFLAGS@ -Wall -I../src
 
-TESTS = SequencerTest SingleThreadedClaimStrategyTest MultiThreadedClaimStrategyTest CountDownLatchTest RingBufferTest
+TESTS = SequencerTest SingleThreadedClaimStrategyTest MultiThreadedClaimStrategyTest MultiThreadedLowContentionClaimStrategyTest CountDownLatchTest RingBufferTest
 
 check_PROGRAMS = $(TESTS)
 
@@ -23,6 +23,10 @@ SingleThreadedClaimStrategyTest_LDFLAGS = $(GTESTLIBS)
 MultiThreadedClaimStrategyTest_SOURCES = MultiThreadedClaimStrategyTest.cpp
 MultiThreadedClaimStrategyTest_LDADD = ../src/libdisruptor.la
 MultiThreadedClaimStrategyTest_LDFLAGS = $(GTESTLIBS)
+
+MultiThreadedLowContentionClaimStrategyTest_SOURCES = MultiThreadedLowContentionClaimStrategyTest.cpp
+MultiThreadedLowContentionClaimStrategyTest_LDADD = ../src/libdisruptor.la
+MultiThreadedLowContentionClaimStrategyTest_LDFLAGS = $(GTESTLIBS)
 
 
 CountDownLatchTest_SOURCES = CountDownLatchTest.cpp
