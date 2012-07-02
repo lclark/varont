@@ -19,7 +19,7 @@ public:
   Sequence(const Sequence&) = delete;
   Sequence& operator=(const Sequence&) = delete;
   
-  const long get() const {
+  virtual long get() {
     return value_.load();
   }
 

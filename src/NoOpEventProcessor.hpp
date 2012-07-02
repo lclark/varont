@@ -15,7 +15,7 @@ public:
     , sequencer_(sequencer)
   {}
 
-  long get() const {
+  long get() {
     return sequencer_.getCursor();
   }
 };
