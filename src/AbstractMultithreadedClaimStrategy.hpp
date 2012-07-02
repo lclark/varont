@@ -11,7 +11,9 @@
 
 namespace disruptor {
 
-class AbstractMultithreadedClaimStrategy {
+class AbstractMultithreadedClaimStrategy
+    : public ClaimStrategy
+{
 
   const int bufferSize_;
   Sequence claimSequence_;
@@ -28,7 +30,7 @@ public:
     return bufferSize_;
   }
 
-  virtual long getSequence() const {
+  virtual long getSequence() {
     return claimSequence_.get();
   }
 
@@ -37,11 +39,11 @@ public:
   }
 
   virtual long incrementAndGet(std::vector<Sequence*>& dependentSequences) {
-    long minGatingSequence = minGatingSequence_;
-    waitForCapacity(dependentSequences, minGatingSequence);
+    // long minGatingSequence = minGatingSequence_;
+    // waitForCapacity(dependentSequences, minGatingSequence);
 
     const long nextSequence = claimSequence_.incrementAndGet();
-    waitForFreeSlotAt(nextSequence, dependentSequences, minGatingSequence);
+    waitForFreeSlotAt(nextSequence, dependentSequences, minGatingSequence_);
 
     return nextSequence;
   }

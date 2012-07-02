@@ -2,6 +2,7 @@
 #define __DISRUPTOR_SEQUENCER_HPP__
 
 #include <stdexcept>
+#include <memory>
 
 #include "Sequence.hpp"
 #include "ClaimStrategy.hpp"
@@ -54,9 +55,9 @@ public:
    * @param sequencesToTrack this barrier will track
    * @return the barrier gated as required
    */
-  ProcessingSequenceBarrier&& newBarrier(std::vector<Sequence*>& sequencesToTrack);
+  std::unique_ptr<ProcessingSequenceBarrier> newBarrier(std::vector<Sequence*>& sequencesToTrack);
 
-  ProcessingSequenceBarrier&& newBarrier(std::vector<Sequence*>&& sequencesToTrack);
+  std::unique_ptr<ProcessingSequenceBarrier> newBarrier(std::vector<Sequence*>&& sequencesToTrack);
 
   /**
    * Create a new {@link BatchDescriptor} that is the minimum of the requested size
@@ -81,7 +82,7 @@ public:
    *
    * @return value of the cursor for events that have been published.
    */
-  const long getCursor() const {
+  long getCursor() {
     return cursor_.get();
   }
 

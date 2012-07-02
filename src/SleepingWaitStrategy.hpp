@@ -22,7 +22,7 @@ class SleepingWaitStrategy
   static const int RETRIES = 200;
 
 public:
-  long waitFor(long sequence, Sequence& cursor, std::vector<Sequence*> dependents, SequenceBarrier& barrier)
+  long waitFor(long sequence, Sequence& cursor, std::vector<Sequence*>& dependents, SequenceBarrier& barrier)
     throw(AlertException/*, InterruptedException*/)
   {
     long availableSequence;
@@ -43,7 +43,7 @@ public:
     return availableSequence;
   }
 
-  long waitFor(long sequence, Sequence& cursor, std::vector<Sequence*> dependents, SequenceBarrier& barrier,
+  long waitFor(long sequence, Sequence& cursor, std::vector<Sequence*>& dependents, SequenceBarrier& barrier,
                long timeout, TimeUnit sourceUnit)
     throw(AlertException/*, InterruptedException*/)
   {

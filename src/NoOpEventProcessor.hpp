@@ -24,6 +24,7 @@ class NoOpEventProcessor
   : public EventProcessor
 {
   SequencerFollowingSequence sequence_;
+
 public:
   /**
    * Construct a {@link EventProcessor} that simply tracks a {@link Sequencer}.

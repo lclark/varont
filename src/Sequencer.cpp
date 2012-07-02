@@ -18,16 +18,14 @@ void Sequencer::setGatingSequences(std::vector<Sequence*>&& sequences) {
   std::copy(sequences.begin(), sequences.end(), gatingSequences_.begin());
 }
 
-ProcessingSequenceBarrier&& Sequencer::newBarrier(std::vector<Sequence*>& sequencesToTrack) {
-  /* XXX: Returning ProcessingSequenceBarrier when SequenceBarrier
-     expected.  This should cause a memory leak. */
-  return std::move(ProcessingSequenceBarrier(waitStrategy_, cursor_, sequencesToTrack));
+std::unique_ptr<ProcessingSequenceBarrier> Sequencer::newBarrier(std::vector<Sequence*>& sequencesToTrack) {
+  return std::unique_ptr<ProcessingSequenceBarrier>(
+    new ProcessingSequenceBarrier(waitStrategy_, cursor_, sequencesToTrack));
 }
 
-ProcessingSequenceBarrier&& Sequencer::newBarrier(std::vector<Sequence*>&& sequencesToTrack) {
-  /* XXX: Returning ProcessingSequenceBarrier when SequenceBarrier
-     expected.  This should cause a memory leak. */
-  return std::move(ProcessingSequenceBarrier(waitStrategy_, cursor_, sequencesToTrack));
+std::unique_ptr<ProcessingSequenceBarrier> Sequencer::newBarrier(std::vector<Sequence*>&& sequencesToTrack) {
+  return std::unique_ptr<ProcessingSequenceBarrier>(
+    new ProcessingSequenceBarrier(waitStrategy_, cursor_, sequencesToTrack));
 }
 
 BatchDescriptor Sequencer::newBatchDescriptor(const int size) {

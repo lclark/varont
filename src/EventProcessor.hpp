@@ -8,23 +8,24 @@ namespace disruptor {
  * An EventProcessor will be associated with a Thread for execution.
  */
 class EventProcessor {
+ public:
   /**
    * Get a reference to the {@link Sequence} being used by this {@link EventProcessor}.
    *
    * @return reference to the {@link Sequence} for this {@link EventProcessor}
    */
-  Sequence& getSequence();
+  virtual Sequence& getSequence() = 0;
 
   /**
    * Signal that this EventProcessor should stop when it has finished consuming at the next clean break.
    * It will call {@link SequenceBarrier#alert()} to notify the thread to check status.
    */
-  void halt();
+  virtual void halt() = 0;
 
   /**
    * Implementations of EventProcessor must be a functor (Runnable).
    */
-  void operator()();
+  virtual void operator()() = 0;
 
 protected:
   ~EventProcessor() {}

@@ -23,26 +23,12 @@ class ProcessingSequenceBarrier
 public:
   ProcessingSequenceBarrier(WaitStrategy& waitStrategy,
                             Sequence& cursorSequence,
-                            std::vector<Sequence*> dependentSequences)
+                            std::vector<Sequence*>& dependentSequences)
     : waitStrategy_(waitStrategy)
     , cursorSequence_(cursorSequence)
     , dependentSequences_(dependentSequences)
     , alerted_(false)
   {}
-
-  ProcessingSequenceBarrier(ProcessingSequenceBarrier&& other)
-    : waitStrategy_(other.waitStrategy_)
-    , cursorSequence_(other.cursorSequence_)
-    , dependentSequences_(other.dependentSequences_)
-    , alerted_(other.alerted_.load())
-  {}
-
-  // ProcessingSequenceBarrier& operator=(ProcessingSequenceBarrier&& other)
-  //   : waitStrategy_(other.waitStrategy_)
-  //   , cursorSequence_(other.cursorSequence_)
-  //   , dependentSequences_(other.dependentSequences_)
-  //   , alerted_(other.alerted_)
-  // {}
 
   long waitFor(long sequence) throw(AlertException) {
     checkAlert();

@@ -26,7 +26,7 @@ public:
    * @throws AlertException if the status of the Disruptor has changed.
    * @throws InterruptedException if the thread is interrupted.
    */
-  virtual long waitFor(long sequence, Sequence& cursor, std::vector<Sequence*> dependents, SequenceBarrier& barrier)
+  virtual long waitFor(long sequence, Sequence& cursor, std::vector<Sequence*>& dependents, SequenceBarrier& barrier)
     throw(AlertException /*, InterruptedException */) = 0;
 
   /**
@@ -42,7 +42,7 @@ public:
    * @throws AlertException if the status of the Disruptor has changed.
    * @throws InterruptedException if the thread is interrupted.
    */
-  virtual long waitFor(long sequence, Sequence& cursor, std::vector<Sequence*> dependents, SequenceBarrier& barrier,
+  virtual long waitFor(long sequence, Sequence& cursor, std::vector<Sequence*>& dependents, SequenceBarrier& barrier,
                  long timeout, TimeUnit sourceUnit)
     throw(AlertException /*, InterruptedException */) = 0;
 

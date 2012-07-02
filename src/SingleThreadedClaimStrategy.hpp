@@ -35,11 +35,11 @@ public:
     , claimSequence_(Sequencer::INITIAL_CURSOR_VALUE)
   { }
 
-  int getBufferSize() const {
+  const int getBufferSize() const {
     return bufferSize_;
   }
 
-  long getSequence() const {
+  long getSequence() {
     return claimSequence_.get();
   }
 

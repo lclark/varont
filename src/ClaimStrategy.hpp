@@ -19,14 +19,14 @@ public:
    *
    * @return size of the underlying buffer.
    */
-  virtual int getBufferSize() const = 0;
+  virtual const int getBufferSize() const = 0;
 
   /**
    * Get the current claimed sequence.
    *
    * @return the current claimed sequence.
    */
-  virtual long getSequence() const = 0;
+  virtual long getSequence() = 0;
 
   /**
    * Is there available capacity in the buffer for the requested sequence.

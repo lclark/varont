@@ -91,33 +91,33 @@ TEST_F(SequencerTest, shouldPublishSequenceBatch) {
 }
 
 TEST_F(SequencerTest, shouldAwaitOnSequence) {
-  ProcessingSequenceBarrier barrier = sequencer.newBarrier({});
+  std::unique_ptr<ProcessingSequenceBarrier> barrier = sequencer.newBarrier({});
   long sequence = sequencer.next();
   sequencer.publish(sequence);
 
-  EXPECT_EQ(sequence, barrier.waitFor(sequence));
+  EXPECT_EQ(sequence, barrier->waitFor(sequence));
 }
 
 TEST_F(SequencerTest, shouldWaitOnSequenceShowingBatchingEffect) {
-  ProcessingSequenceBarrier barrier = sequencer.newBarrier({});
+  std::unique_ptr<ProcessingSequenceBarrier> barrier = sequencer.newBarrier({});
   sequencer.publish(sequencer.next());
   sequencer.publish(sequencer.next());
 
   long sequence = sequencer.next();
   sequencer.publish(sequence);
 
-  EXPECT_EQ(sequence, barrier.waitFor((long)Sequencer::INITIAL_CURSOR_VALUE + 1L));
+  EXPECT_EQ(sequence, barrier->waitFor((long)Sequencer::INITIAL_CURSOR_VALUE + 1L));
 }
 
 TEST_F(SequencerTest, shouldSignalWaitingProcessorWhenSequenceIsPublished) {
-  ProcessingSequenceBarrier barrier = sequencer.newBarrier({});
+  std::unique_ptr<ProcessingSequenceBarrier> barrier = sequencer.newBarrier({});
   CountDownLatch waitingLatch(1);
   CountDownLatch doneLatch(1);
   const long expectedSequence = Sequencer::INITIAL_CURSOR_VALUE + 1L;
 
   std::thread t0([&] {
       waitingLatch.countDown();
-      EXPECT_EQ(expectedSequence, barrier.waitFor(expectedSequence));
+      EXPECT_EQ(expectedSequence, barrier->waitFor(expectedSequence));
 
       gatingSequence.set(expectedSequence);
       doneLatch.countDown();
