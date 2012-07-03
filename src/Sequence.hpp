@@ -16,8 +16,14 @@ public:
     setOrdered(initialValue);
   }
 
-  Sequence(const Sequence&) = delete;
-  Sequence& operator=(const Sequence&) = delete;
+  Sequence(const Sequence& original) {
+    value_.store(original.value_.load());
+  }
+  
+  Sequence& operator=(const Sequence& other) {
+    value_.store(other.value_.load());
+    return *this;
+  }
   
   virtual long get() {
     return value_.load();

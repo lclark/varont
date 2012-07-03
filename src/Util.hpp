@@ -15,7 +15,7 @@ namespace util {
  * @param sequences to compare.
  * @return the minimum sequence found or Long.MAX_VALUE if the array is empty.
  */
-long getMinimumSequence(std::vector<Sequence*> sequences);
+long getMinimumSequence(std::vector<Sequence*>& sequences);
 
 int bitCount(int);
 

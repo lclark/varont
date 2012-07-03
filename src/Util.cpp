@@ -6,7 +6,7 @@
 namespace disruptor {
 namespace util {
 
-long getMinimumSequence(std::vector<Sequence*> sequences) {
+long getMinimumSequence(std::vector<Sequence*>& sequences) {
   long minimum = std::numeric_limits<long>::max();
 
   for (Sequence* sequence : sequences) {
