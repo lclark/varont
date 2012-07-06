@@ -8,8 +8,10 @@
 #include "LifecycleAwareEventHandler.hpp"
 #include "Sequencer.hpp"
 #include "Sequence.hpp"
+#include "EventProcessor.hpp"
 
 #include "IllegalStateException.hpp"
+#include "FatalExceptionHandler.hpp"
 
 namespace disruptor {
 
@@ -27,7 +29,9 @@ class BatchEventProcessor
     : public EventProcessor
 {
   std::atomic_bool running_;
-    // private ExceptionHandler exceptionHandler = new FatalExceptionHandler();
+
+  FatalExceptionHandler defaultExceptionHandler_;
+  ExceptionHandler* exceptionHandler_;
 
   RingBuffer<T>& ringBuffer_;
   SequenceBarrier& sequenceBarrier_;
@@ -36,7 +40,9 @@ class BatchEventProcessor
 
  public:
   BatchEventProcessor(RingBuffer<T>& ringBuffer, SequenceBarrier& sequenceBarrier, LifecycleAwareEventHandler<T>& eventHandler)
-      : ringBuffer_(ringBuffer)
+      : running_(false)
+      , exceptionHandler_(&defaultExceptionHandler_)
+      , ringBuffer_(ringBuffer)
       , sequenceBarrier_(sequenceBarrier)
       , eventHandler_(eventHandler)
       , sequence_(Sequencer::INITIAL_CURSOR_VALUE)
@@ -49,6 +55,13 @@ class BatchEventProcessor
   void halt() {
     running_.store(false);
     sequenceBarrier_.alert();
+  }
+
+  /**
+   * Set a new ExceptionHandler for handling exceptions propagated out of the BatchEventProcessor.
+   */
+  void setExceptionHandler(ExceptionHandler& exceptionHandler) {
+    exceptionHandler_ = &exceptionHandler;
   }
 
   /**
@@ -83,8 +96,8 @@ class BatchEventProcessor
           break;
         }
       }
-      catch (...) {
-        // exceptionHandler.handleEventException(ex, nextSequence, event);
+      catch (std::exception ex) {
+        exceptionHandler_->handleEventException(ex, nextSequence);
         sequence_.set(nextSequence);
         nextSequence++;
       }
@@ -100,8 +113,8 @@ class BatchEventProcessor
     try {
       eventHandler_.onStart();
     }
-    catch (...) {
-      // exceptionHandler_.handleOnStartException
+    catch (std::exception& ex) {
+      exceptionHandler_->handleOnStartException(ex);
     }
   }
 
@@ -109,8 +122,8 @@ class BatchEventProcessor
     try {
       eventHandler_.onShutdown();
     }
-    catch (...) {
-      // exceptionHandler_.handleOnShutdownException
+    catch (std::exception& ex) {
+      exceptionHandler_->handleOnShutdownException(ex);
     }
   }
 
