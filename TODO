@@ -1,0 +1,21 @@
+* Tests
+** TODO AggregateEventHandlerTest
+** DONE BatchEventProcessorTest
+** DONE BatchPublisherTest
+** TODO EventPublisherTest
+** TODO EventTranslatorTest
+** TODO FatalExceptionHandlerTest
+** TODO IgnoreExceptionHandlerTest
+** DONE LifecycleAwareTest
+** DONE MultiThreadedClaimStrategyTest
+** DONE MultiThreadedLowContentionClaimStrategyTest
+** DONE RingBufferTest
+** DONE SequenceBarrierTest
+** TODO SequenceGroupTest
+** TODO SequenceReportingCallbackTest
+** DONE SequencerTest
+** DONE SingleThreadedClaimStrategyTest
+* Neglected Details
+** TODO Wait strategies need TimeUnit support (BlockingWaitStrategy, for instance).
+** TODO BatchEventProcessor required a hybrid LifecycleAwareEventHandler, which may be a silly solution to the problem.
+** DONE BatchEventProcessor requires an exception handler.
