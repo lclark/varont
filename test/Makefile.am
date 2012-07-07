@@ -2,7 +2,7 @@ AUTOMAKE_OPTIONS = subdir-objects
 ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
 
 GTESTLIBS = -lgtest_main -lgtest -pthread
-AM_CXXFLAGS := @AM_CXXFLAGS@ -Wall -I../src
+AM_CXXFLAGS := -I../src
 
 TESTS = SequencerTest SingleThreadedClaimStrategyTest MultiThreadedClaimStrategyTest MultiThreadedLowContentionClaimStrategyTest CountDownLatchTest RingBufferTest LifecycleAwareTest SequenceBarrierTest BatchEventProcessorTest BatchPublisherTest AggregateEventHandlerTest
 
