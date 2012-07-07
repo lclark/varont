@@ -1,7 +1,7 @@
 AC_PREREQ([2.65])
 
 # Version read as "major.minor[.revision]" and its use is subjective.
-AC_INIT([disruptor], [0.1], [lclark@2bdx.net])
+AC_INIT([varont], [0.1], [lclark@2bdx.net])
 AC_CONFIG_SRCDIR([src/])
 
 # Setting a default CFLAGS and CXXFLAGS, allowing override.
@@ -31,6 +31,7 @@ AC_TYPE_INT64_T
 AC_HEADER_TIME
 
 # Checks for libraries.
+# XXX: don't add these libraries to LIBS!
 AC_CHECK_LIB(stdc++, [main])
 AC_CHECK_LIB(rt, [main])
 AC_CHECK_LIB(gtest, [main])
