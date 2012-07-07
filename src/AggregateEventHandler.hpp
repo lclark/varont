@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_AGGREGATEEVENTHANDLER_HPP__
-#define __DISRUPTOR_AGGREGATEEVENTHANDLER_HPP__
+#ifndef __VARONT_AGGREGATEEVENTHANDLER_HPP__
+#define __VARONT_AGGREGATEEVENTHANDLER_HPP__
 
 #include <atomic>
 
@@ -24,7 +24,7 @@
 #include "IllegalStateException.hpp"
 #include "FatalExceptionHandler.hpp"
 
-namespace disruptor {
+namespace varont {
 
 template <typename T>
 class AggregateEventHandler
@@ -57,4 +57,4 @@ class AggregateEventHandler
 
 }
 
-#endif /* __DISRUPTOR_AGGREGATEEVENTHANDLER_HPP__ */
+#endif /* __VARONT_AGGREGATEEVENTHANDLER_HPP__ */

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_EVENTPROCESSOR_HPP__
-#define __DISRUPTOR_EVENTPROCESSOR_HPP__
+#ifndef __VARONT_EVENTPROCESSOR_HPP__
+#define __VARONT_EVENTPROCESSOR_HPP__
 
-namespace disruptor {
+namespace varont {
 /**
  * EventProcessors waitFor events to become available for consumption from the {@link RingBuffer}
  *
@@ -48,7 +48,7 @@ protected:
 
 }
 
-#endif /*  __DISRUPTOR_EVENTPROCESSOR_HPP__ */
+#endif /*  __VARONT_EVENTPROCESSOR_HPP__ */
 
 
 

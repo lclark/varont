@@ -28,7 +28,7 @@
 
 #include "CountDownLatch.hpp"
 
-namespace disruptor {
+namespace varont {
 namespace test {
 
 struct SequencerTest : public testing::Test {

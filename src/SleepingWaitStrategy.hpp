@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_SLEEPINGWAITSTRATEGY_HPP__
-#define __DISRUPTOR_SLEEPINGWAITSTRATEGY_HPP__
+#ifndef __VARONT_SLEEPINGWAITSTRATEGY_HPP__
+#define __VARONT_SLEEPINGWAITSTRATEGY_HPP__
 
 #include <vector>
 #include <chrono>
@@ -24,10 +24,10 @@
 #include "Util.hpp"
 #include "TimeUnit.hpp"
 
-namespace disruptor {
+namespace varont {
 /**
  * Sleeping strategy that initially spins, then uses a Thread.yield(), and eventually for the minimum number of nanos
- * the OS and JVM will allow while the {@link com.lmax.disruptor.EventProcessor}s are waiting on a barrier.
+ * the OS and JVM will allow while the {@link com.lmax.varont.EventProcessor}s are waiting on a barrier.
  *
  * This strategy is a good compromise between performance and CPU resource. Latency spikes can occur after quiet periods.
  */
@@ -116,4 +116,4 @@ public:
 
 }
 
-#endif /* __DISRUPTOR_SLEEPINGWAITSTRATEGY_HPP__ */
+#endif /* __VARONT_SLEEPINGWAITSTRATEGY_HPP__ */

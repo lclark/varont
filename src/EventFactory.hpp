@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_EVENTFACTORY_HPP__
-#define __DISRUPTOR_EVENTFACTORY_HPP__
+#ifndef __VARONT_EVENTFACTORY_HPP__
+#define __VARONT_EVENTFACTORY_HPP__
 
-namespace disruptor {
+namespace varont {
 
 /**
  * Called by the {@link RingBuffer} to pre-populate all the events to fill the RingBuffer.
@@ -32,4 +32,4 @@ protected:
 
 }
 
-#endif /* __DISRUPTOR_EVENTFACTORY_HPP__ */
+#endif /* __VARONT_EVENTFACTORY_HPP__ */

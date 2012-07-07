@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_BATCHDESCRIPTOR_HPP__
-#define __DISRUPTOR_BATCHDESCRIPTOR_HPP__
+#ifndef __VARONT_BATCHDESCRIPTOR_HPP__
+#define __VARONT_BATCHDESCRIPTOR_HPP__
 
 #include "Sequencer.hpp"
 
-namespace disruptor {
+namespace varont {
 
 /**
  * Used to record the batch of sequences claimed via a {@link Sequencer}.
@@ -80,4 +80,4 @@ public:
 
 }
 
-#endif /* __DISRUPTOR_BATCHDESCRIPTOR_HPP__ */
+#endif /* __VARONT_BATCHDESCRIPTOR_HPP__ */

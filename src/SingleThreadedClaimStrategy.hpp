@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_SINGLETHREADEDCLAIMSTRATEGY_HPP__
-#define __DISRUPTOR_SINGLETHREADEDCLAIMSTRATEGY_HPP__
+#ifndef __VARONT_SINGLETHREADEDCLAIMSTRATEGY_HPP__
+#define __VARONT_SINGLETHREADEDCLAIMSTRATEGY_HPP__
 
 #include <thread>
 #include <chrono>
@@ -24,7 +24,7 @@
 #include "PaddedLong.hpp"
 #include "Util.hpp"
 
-namespace disruptor {
+namespace varont {
 
 /**
  * Optimised strategy can be used when there is a single publisher thread claiming sequences.
@@ -126,4 +126,4 @@ public:
 
 }
 
-#endif /* __DISRUPTOR_SINGLETHREADEDCLAIMSTRATEGY_HPP__ */
+#endif /* __VARONT_SINGLETHREADEDCLAIMSTRATEGY_HPP__ */

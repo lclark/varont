@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_TESTWAITER_HPP__
-#define __DISRUPTOR_TESTWAITER_HPP__
+#ifndef __VARONT_TESTWAITER_HPP__
+#define __VARONT_TESTWAITER_HPP__
 
-namespace disruptor {
+namespace varont {
 namespace test {
 
 class TestWaiter {
@@ -51,4 +51,4 @@ public:
 }
 }
 
-#endif /* __DISRUPTOR_TESTWAITER_HPP__ */
+#endif /* __VARONT_TESTWAITER_HPP__ */

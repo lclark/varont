@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_BLOCKINGWAITSTRATEGY_HPP__
-#define __DISRUPTOR_BLOCKINGWAITSTRATEGY_HPP__
+#ifndef __VARONT_BLOCKINGWAITSTRATEGY_HPP__
+#define __VARONT_BLOCKINGWAITSTRATEGY_HPP__
 
 #include <vector>
 #include <chrono>
@@ -26,7 +26,7 @@
 #include "Util.hpp"
 #include "TimeUnit.hpp"
 
-namespace disruptor {
+namespace varont {
 
 class WaiterGuard {
   int& numWaiters_;
@@ -119,4 +119,4 @@ public:
 
 }
 
-#endif /* __DISRUPTOR_BLOCKINGWAITSTRATEGY_HPP__ */
+#endif /* __VARONT_BLOCKINGWAITSTRATEGY_HPP__ */

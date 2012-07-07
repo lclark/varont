@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_WAITSTRATEGY_HPP__
-#define __DISRUPTOR_WAITSTRATEGY_HPP__
+#ifndef __VARONT_WAITSTRATEGY_HPP__
+#define __VARONT_WAITSTRATEGY_HPP__
 
 #include <vector>
 #include <chrono>
@@ -22,7 +22,7 @@
 #include "TimeUnit.hpp"
 #include "AlertException.hpp"
 
-namespace disruptor {
+namespace varont {
 class SequenceBarrier;
 
 /**
@@ -72,4 +72,4 @@ protected:
 
 }
 
-#endif /* __DISRUPTOR_WAITSTRATEGY_HPP__ */
+#endif /* __VARONT_WAITSTRATEGY_HPP__ */

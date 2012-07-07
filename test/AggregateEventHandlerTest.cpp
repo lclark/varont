@@ -17,7 +17,7 @@
 
 #include "AggregateEventHandler.hpp"
 
-namespace disruptor {
+namespace varont {
 namespace test {
 
 struct AggregateEventHandlerTest : public testing::Test {

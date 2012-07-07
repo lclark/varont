@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_EXCEPTIONHANDLER_HPP__
-#define __DISRUPTOR_EXCEPTIONHANDLER_HPP__
+#ifndef __VARONT_EXCEPTIONHANDLER_HPP__
+#define __VARONT_EXCEPTIONHANDLER_HPP__
 
 #include <exception>
 
-namespace disruptor {
+namespace varont {
 
 /**
  * Callback handler for uncaught exceptions in the event processing cycle of the {@link BatchEventProcessor}
@@ -54,5 +54,5 @@ public:
 
 }
 
-#endif /* __DISRUPTOR_EXCEPTIONHANDLER_HPP__ */
+#endif /* __VARONT_EXCEPTIONHANDLER_HPP__ */
 

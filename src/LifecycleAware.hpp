@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_LIFECYCLEAWARE_HPP__
-#define __DISRUPTOR_LIFECYCLEAWARE_HPP__
+#ifndef __VARONT_LIFECYCLEAWARE_HPP__
+#define __VARONT_LIFECYCLEAWARE_HPP__
 
-namespace disruptor {
+namespace varont {
 
 /**
  * Implement this interface to be notified when a thread for the {@link BatchEventProcessor} starts and shuts down.
@@ -39,4 +39,4 @@ class LifecycleAware {
 
 }
 
-#endif /* __DISRUPTOR_LIFECYCLEAWARE_HPP__ */
+#endif /* __VARONT_LIFECYCLEAWARE_HPP__ */

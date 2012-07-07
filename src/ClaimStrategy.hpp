@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_CLAIMSTRATEGY_HPP__
-#define __DISRUPTOR_CLAIMSTRATEGY_HPP__
+#ifndef __VARONT_CLAIMSTRATEGY_HPP__
+#define __VARONT_CLAIMSTRATEGY_HPP__
 
 #include <vector>
 
 #include "InsufficientCapacityException.hpp"
 
-namespace disruptor {
+namespace varont {
 class Seqeunce;
 
 /**
@@ -108,4 +108,4 @@ protected:
 
 }
 
-#endif /* __DISRUPTOR_CLAIMSTRATEGY_HPP__ */
+#endif /* __VARONT_CLAIMSTRATEGY_HPP__ */

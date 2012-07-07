@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_BATCHEVENTPROCESSOR_HPP__
-#define __DISRUPTOR_BATCHEVENTPROCESSOR_HPP__
+#ifndef __VARONT_BATCHEVENTPROCESSOR_HPP__
+#define __VARONT_BATCHEVENTPROCESSOR_HPP__
 
 #include <atomic>
 
@@ -28,7 +28,7 @@
 #include "IllegalStateException.hpp"
 #include "FatalExceptionHandler.hpp"
 
-namespace disruptor {
+namespace varont {
 
 /**
  * Convenience class for handling the batching semantics of consuming entries from a {@link RingBuffer}
@@ -147,4 +147,4 @@ class BatchEventProcessor
 
 }
 
-#endif /* __DISRUPTOR_BATCHEVENTPROCESSOR_HPP__ */
+#endif /* __VARONT_BATCHEVENTPROCESSOR_HPP__ */

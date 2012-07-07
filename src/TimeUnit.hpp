@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_TIMEUNIT_HPP__
-#define __DISRUPTOR_TIMEUNIT_HPP__
+#ifndef __VARONT_TIMEUNIT_HPP__
+#define __VARONT_TIMEUNIT_HPP__
 
-namespace disruptor {
+namespace varont {
   enum class TimeUnit {
     Picoseconds,
     Nanoseconds,
@@ -25,4 +25,4 @@ namespace disruptor {
   };
 }
 
-#endif /* __DISRUPTOR_TIMEUNIT_HPP__ */
+#endif /* __VARONT_TIMEUNIT_HPP__ */

@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_ALERTEXCEPTION_HPP__
-#define __DISRUPTOR_ALERTEXCEPTION_HPP__
+#ifndef __VARONT_ALERTEXCEPTION_HPP__
+#define __VARONT_ALERTEXCEPTION_HPP__
 
 #include <stdexcept>
 
-namespace disruptor {
+namespace varont {
 
 class AlertException
   : public std::runtime_error
@@ -30,4 +30,4 @@ public:
 
 }
 
-#endif /* __DISRUPTOR_ALERTEXCEPTION_HPP__ */
+#endif /* __VARONT_ALERTEXCEPTION_HPP__ */

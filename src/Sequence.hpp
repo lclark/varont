@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_SEQUENCE_HPP__
-#define __DISRUPTOR_SEQUENCE_HPP__
+#ifndef __VARONT_SEQUENCE_HPP__
+#define __VARONT_SEQUENCE_HPP__
 
 #include <atomic>
 
-namespace disruptor {
+namespace varont {
 
 class Sequence {
   std::atomic_long value_;
@@ -73,4 +73,4 @@ public:
 
 }
 
-#endif /* __DISRUPTOR_SEQUENCE_HPP__ */
+#endif /* __VARONT_SEQUENCE_HPP__ */

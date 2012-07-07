@@ -1,6 +1,6 @@
 #include <string>
 
-namespace disruptor {
+namespace varont {
 namespace test {
 
 using std::string;

@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_INSUFFICIENTCAPACITYEXCEPTION_HPP__
-#define __DISRUPTOR_INSUFFICIENTCAPACITYEXCEPTION_HPP__
+#ifndef __VARONT_INSUFFICIENTCAPACITYEXCEPTION_HPP__
+#define __VARONT_INSUFFICIENTCAPACITYEXCEPTION_HPP__
 
 #include <stdexcept>
 
-namespace disruptor {
+namespace varont {
 
 class InsufficientCapacityException
   : public std::runtime_error
@@ -30,4 +30,4 @@ public:
 
 }
 
-#endif /* __DISRUPTOR_INSUFFICIENTCAPACITYEXCEPTION_HPP__ */
+#endif /* __VARONT_INSUFFICIENTCAPACITYEXCEPTION_HPP__ */

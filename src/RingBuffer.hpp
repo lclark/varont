@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_RINGBUFFER_HPP__
-#define __DISRUPTOR_RINGBUFFER_HPP__
+#ifndef __VARONT_RINGBUFFER_HPP__
+#define __VARONT_RINGBUFFER_HPP__
 
 #include <stdexcept>
 
@@ -23,7 +23,7 @@
 #include "BlockingWaitStrategy.hpp"
 #include "Util.hpp"
 
-namespace disruptor {
+namespace varont {
 
 /**
  * Ring based store of reusable entries containing the data
@@ -107,4 +107,4 @@ public:
 
 }
 
-#endif /* __DISRUPTOR_RINGBUFFER_HPP__ */
+#endif /* __VARONT_RINGBUFFER_HPP__ */

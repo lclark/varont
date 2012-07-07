@@ -39,7 +39,7 @@
 
 #include "support/StubEvent.hpp"
 
-namespace disruptor {
+namespace varont {
 namespace test {
 
 struct RingBufferTest : public testing::Test {

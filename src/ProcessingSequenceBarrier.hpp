@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_PROCESSINGSEQUENCEBARRIER_HPP__
-#define __DISRUPTOR_PROCESSINGSEQUENCEBARRIER_HPP__
+#ifndef __VARONT_PROCESSINGSEQUENCEBARRIER_HPP__
+#define __VARONT_PROCESSINGSEQUENCEBARRIER_HPP__
 
 #include <atomic>
 
@@ -22,7 +22,7 @@
 #include "AlertException.hpp"
 #include "SequenceBarrier.hpp"
 
-namespace disruptor {
+namespace varont {
 
 /**
  * Coordination barrier for tracking the cursor for publishers and sequence of
@@ -84,4 +84,4 @@ public:
 
 }
 
-#endif /* __DISRUPTOR_PROCESSINGSEQUENCEBARRIER_HPP__ */
+#endif /* __VARONT_PROCESSINGSEQUENCEBARRIER_HPP__ */

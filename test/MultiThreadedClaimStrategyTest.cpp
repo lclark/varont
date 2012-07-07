@@ -26,7 +26,7 @@
 #include "CountDownLatch.hpp"
 #include "CyclicBarrier.hpp"
 
-namespace disruptor {
+namespace varont {
 namespace test {
 
 struct MultiThreadedClaimStrategyTest : public testing::Test {

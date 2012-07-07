@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_MULTITHREADEDLOWCONTENTIONCLAIMSTRATEGY_HPP__
-#define __DISRUPTOR_MULTITHREADEDLOWCONTENTIONCLAIMSTRATEGY_HPP__
+#ifndef __VARONT_MULTITHREADEDLOWCONTENTIONCLAIMSTRATEGY_HPP__
+#define __VARONT_MULTITHREADEDLOWCONTENTIONCLAIMSTRATEGY_HPP__
 
 #include "AbstractMultithreadedClaimStrategy.hpp"
 
-namespace disruptor {
+namespace varont {
 
 class MultiThreadedLowContentionClaimStrategy
     : public AbstractMultithreadedClaimStrategy
@@ -45,6 +45,6 @@ class MultiThreadedLowContentionClaimStrategy
 
 }
 
-#endif /* __DISRUPTOR_MULTITHREADEDLOWCONTENTIONCLAIMSTRATEGY_HPP__ */
+#endif /* __VARONT_MULTITHREADEDLOWCONTENTIONCLAIMSTRATEGY_HPP__ */
 
 

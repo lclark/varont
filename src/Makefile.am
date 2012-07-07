@@ -1,7 +1,7 @@
 AUTOMAKE_OPTIONS = subdir-objects
 ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
 
-lib_LTLIBRARIES = libdisruptor.la
+lib_LTLIBRARIES = libvaront.la
 
-libdisruptor_la_SOURCES = Sequencer.cpp Util.cpp
+libvaront_la_SOURCES = Sequencer.cpp Util.cpp
 

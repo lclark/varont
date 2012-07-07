@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_LIFECYCLEAWAREEVENTHANDLER_HPP__
-#define __DISRUPTOR_LIFECYCLEAWAREEVENTHANDLER_HPP__
+#ifndef __VARONT_LIFECYCLEAWAREEVENTHANDLER_HPP__
+#define __VARONT_LIFECYCLEAWAREEVENTHANDLER_HPP__
 
 #include "LifecycleAware.hpp"
 #include "EventHandler.hpp"
 
-namespace disruptor {
+namespace varont {
 
 template <typename T>
 class LifecycleAwareEventHandler
@@ -32,4 +32,4 @@ class LifecycleAwareEventHandler
 
 }
 
-#endif /* __DISRUPTOR_LIFECYCLEAWAREEVENTHANDLER_HPP__ */
+#endif /* __VARONT_LIFECYCLEAWAREEVENTHANDLER_HPP__ */

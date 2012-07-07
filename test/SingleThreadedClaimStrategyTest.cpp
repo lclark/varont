@@ -23,7 +23,7 @@
 #include "SingleThreadedClaimStrategy.hpp"
 #include "CountDownLatch.hpp"
 
-namespace disruptor {
+namespace varont {
 namespace test {
 
 struct SingleThreadedClaimStrategyTest : public testing::Test {

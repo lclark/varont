@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_ABSTRACTMULTITHREADEDCLAIMSTRATEGY_HPP__
-#define __DISRUPTOR_ABSTRACTMULTITHREADEDCLAIMSTRATEGY_HPP__
+#ifndef __VARONT_ABSTRACTMULTITHREADEDCLAIMSTRATEGY_HPP__
+#define __VARONT_ABSTRACTMULTITHREADEDCLAIMSTRATEGY_HPP__
 
 #include <thread>
 #include <chrono>
@@ -24,7 +24,7 @@
 #include "PaddedLong.hpp"
 #include "Util.hpp"
 
-namespace disruptor {
+namespace varont {
 
 class AbstractMultithreadedClaimStrategy
     : public ClaimStrategy
@@ -146,4 +146,4 @@ protected:
 
 }
 
-#endif /* __DISRUPTOR_ABSTRACTMULTITHREADEDCLAIMSTRATEGY_HPP__ */
+#endif /* __VARONT_ABSTRACTMULTITHREADEDCLAIMSTRATEGY_HPP__ */

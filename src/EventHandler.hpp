@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_EVENTHANDLER_HPP__
-#define __DISRUPTOR_EVENTHANDLER_HPP__
+#ifndef __VARONT_EVENTHANDLER_HPP__
+#define __VARONT_EVENTHANDLER_HPP__
 
-namespace disruptor {
+namespace varont {
 
 /**
  * Callback interface to be implemented for processing events as they become available in the {@link RingBuffer}
@@ -44,4 +44,4 @@ class EventHandler {
 
 }
 
-#endif /* __DISRUPTOR_EVENTHANDLER_HPP__ */
+#endif /* __VARONT_EVENTHANDLER_HPP__ */

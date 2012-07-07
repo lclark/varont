@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_FATALEXCEPTIONHANDLER_HPP__
-#define __DISRUPTOR_FATALEXCEPTIONHANDLER_HPP__
+#ifndef __VARONT_FATALEXCEPTIONHANDLER_HPP__
+#define __VARONT_FATALEXCEPTIONHANDLER_HPP__
 
 #include <exception>
 
 #include "ExceptionHandler.hpp"
 
-namespace disruptor {
+namespace varont {
 
 class FatalExceptionHandler
     : public ExceptionHandler
@@ -37,5 +37,5 @@ public:
 
 }
 
-#endif /* __DISRUPTOR_FATALEXCEPTIONHANDLER_HPP__ */
+#endif /* __VARONT_FATALEXCEPTIONHANDLER_HPP__ */
 

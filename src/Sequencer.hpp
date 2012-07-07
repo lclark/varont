@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_SEQUENCER_HPP__
-#define __DISRUPTOR_SEQUENCER_HPP__
+#ifndef __VARONT_SEQUENCER_HPP__
+#define __VARONT_SEQUENCER_HPP__
 
 #include <stdexcept>
 #include <memory>
@@ -23,7 +23,7 @@
 #include "ClaimStrategy.hpp"
 #include "WaitStrategy.hpp"
 
-namespace disruptor {
+namespace varont {
 class BatchDescriptor;
 class ProcessingSequenceBarrier;
 
@@ -178,4 +178,4 @@ public:
 
 }
 
-#endif /* __DISRUPTOR_SEQUENCER_HPP__ */
+#endif /* __VARONT_SEQUENCER_HPP__ */

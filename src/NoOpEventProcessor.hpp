@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_NOOPEVENTPROCESSOR_HPP__
-#define __DISRUPTOR_NOOPEVENTPROCESSOR_HPP__
+#ifndef __VARONT_NOOPEVENTPROCESSOR_HPP__
+#define __VARONT_NOOPEVENTPROCESSOR_HPP__
 
 #include "EventProcessor.hpp"
 
-namespace disruptor {
+namespace varont {
 
 class SequencerFollowingSequence
   : public Sequence
@@ -59,4 +59,4 @@ public:
   
 }
 
-#endif /*  __DISRUPTOR_NOOPEVENTPROCESSOR_HPP__ */
+#endif /*  __VARONT_NOOPEVENTPROCESSOR_HPP__ */

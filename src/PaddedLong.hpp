@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_PADDEDLONG_HPP__
-#define __DISRUPTOR_PADDEDLONG_HPP__
+#ifndef __VARONT_PADDEDLONG_HPP__
+#define __VARONT_PADDEDLONG_HPP__
 
 #include "MutableLong.hpp"
 
-namespace disruptor {
+namespace varont {
 namespace util {
 
 /**
@@ -56,5 +56,5 @@ public:
 }
 }
 
-#endif /* __DISRUPTOR_PADDEDLONG_HPP__ */
+#endif /* __VARONT_PADDEDLONG_HPP__ */
 

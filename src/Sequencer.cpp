@@ -21,7 +21,7 @@
 #include "ProcessingSequenceBarrier.hpp"
 #include "Util.hpp"
 
-namespace disruptor {
+namespace varont {
 
 void Sequencer::setGatingSequences(std::vector<Sequence*>& sequences) {
   gatingSequences_.resize(sequences.size());

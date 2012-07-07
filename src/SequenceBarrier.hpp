@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __DISRUPTOR_SEQUENCEBARRIER_HPP__
-#define __DISRUPTOR_SEQUENCEBARRIER_HPP__
+#ifndef __VARONT_SEQUENCEBARRIER_HPP__
+#define __VARONT_SEQUENCEBARRIER_HPP__
 
 #include "TimeUnit.hpp"
 #include "AlertException.hpp"
 
-namespace disruptor {
+namespace varont {
 
 /**
  * Coordination barrier for tracking the cursor for publishers and sequence of
@@ -86,7 +86,7 @@ protected:
 
 }
 
-#endif /* __DISRUPTOR_SEQUENCEBARRIER_HPP__ */
+#endif /* __VARONT_SEQUENCEBARRIER_HPP__ */
 
 
 

@@ -18,7 +18,7 @@
 
 #include <limits>
 
-namespace disruptor {
+namespace varont {
 namespace util {
 
 long getMinimumSequence(std::vector<Sequence*>& sequences) {
