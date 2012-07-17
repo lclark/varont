@@ -17,6 +17,8 @@
 #define __VARONT_RINGBUFFER_HPP__
 
 #include <stdexcept>
+#include <cmath>
+#include <sstream>
 
 #include "Sequencer.hpp"
 #include "MultiThreadedClaimStrategy.hpp"
@@ -56,7 +58,13 @@ public:
       , entries_(nullptr)
   {
     if (util::bitCount(claimStrategy.getBufferSize()) != 1) {
-      throw std::out_of_range("bufferSize must be a power of 2");
+      /* Suggest the next power-of-2 above the desired size. */
+      uint64_t suggestedValue = std::exp2((long)std::log2l((long double)claimStrategy.getBufferSize()) + 1);
+
+      std::stringstream suggestion;
+      suggestion << "bufferSize must be a power of 2.  consider using " << suggestedValue << ".";
+
+      throw std::out_of_range(suggestion.str());
     }
 
     entries_ = new T[claimStrategy.getBufferSize()];
