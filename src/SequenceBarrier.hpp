@@ -79,9 +79,6 @@ public:
    * @throws AlertException if alert has been raised.
    */
   virtual void checkAlert() throw(AlertException) = 0;
-
-protected:
-  ~SequenceBarrier() {}
 };
 
 }

@@ -25,7 +25,7 @@
 #include "SingleThreadedClaimStrategy.hpp"
 #include "SleepingWaitStrategy.hpp"
 #include "BatchDescriptor.hpp"
-#include "ProcessingSequenceBarrier.hpp"
+#include "SequenceBarrier.hpp"
 #include "InsufficientCapacityException.hpp"
 #include "NoOpEventProcessor.hpp"
 #include "RingBuffer.hpp"
@@ -146,7 +146,7 @@ TEST_F(SequenceBarrierTest, shouldWaitForWorkCompleteWhereCompleteWorkThresholdI
   eventProcessor2.setSequence(Sequence(expectedWorkSequence));
   eventProcessor3.setSequence(Sequence(expectedNumberMessages));
 
-  std::unique_ptr<ProcessingSequenceBarrier> sequenceBarrier = ringBuffer.newBarrier({
+  std::unique_ptr<SequenceBarrier> sequenceBarrier = ringBuffer.newBarrier({
       &eventProcessor1.getSequence(),
       &eventProcessor2.getSequence(),
       &eventProcessor3.getSequence()
@@ -165,7 +165,7 @@ TEST_F(SequenceBarrierTest, shouldWaitForWorkCompleteWhereAllWorkersAreBlockedOn
     workers[i].setSequence(expectedNumberMessages - 1);
   }
 
-  std::unique_ptr<ProcessingSequenceBarrier> sequenceBarrier = ringBuffer.newBarrier({
+  std::unique_ptr<SequenceBarrier> sequenceBarrier = ringBuffer.newBarrier({
       &workers[0].getSequence(),
       &workers[1].getSequence(),
       &workers[2].getSequence()
@@ -202,7 +202,7 @@ TEST_F(SequenceBarrierTest, shouldInterruptDuringBusySpin) {
   eventProcessor2.setSequence(sequence2);
   eventProcessor3.setSequence(sequence3);
 
-  std::unique_ptr<ProcessingSequenceBarrier> sequenceBarrier = ringBuffer.newBarrier({
+  std::unique_ptr<SequenceBarrier> sequenceBarrier = ringBuffer.newBarrier({
       &eventProcessor1.getSequence(),
       &eventProcessor2.getSequence(),
       &eventProcessor3.getSequence()
@@ -234,7 +234,7 @@ TEST_F(SequenceBarrierTest, shouldWaitForWorkCompleteWhereCompleteWorkThresholdI
     workers[i].setSequence(expectedNumberMessages - 2);
   }
 
-  std::unique_ptr<ProcessingSequenceBarrier> sequenceBarrier = ringBuffer.newBarrier({
+  std::unique_ptr<SequenceBarrier> sequenceBarrier = ringBuffer.newBarrier({
       &workers[0].getSequence(),
       &workers[1].getSequence(),
       &workers[2].getSequence()
@@ -254,7 +254,7 @@ TEST_F(SequenceBarrierTest, shouldWaitForWorkCompleteWhereCompleteWorkThresholdI
 }
 
 TEST_F(SequenceBarrierTest, shouldSetAndClearAlertStatus) {
-  std::unique_ptr<ProcessingSequenceBarrier> sequenceBarrier = ringBuffer.newBarrier({ });
+  std::unique_ptr<SequenceBarrier> sequenceBarrier = ringBuffer.newBarrier({ });
 
   ASSERT_FALSE(sequenceBarrier->isAlerted());
 

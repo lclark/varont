@@ -47,7 +47,7 @@ struct RingBufferTest : public testing::Test {
   MultiThreadedClaimStrategy claimStrategy;
   BlockingWaitStrategy waitStrategy;
   RingBuffer<StubEvent> ringBuffer;
-  std::unique_ptr<ProcessingSequenceBarrier> sequenceBarrier;
+  std::unique_ptr<SequenceBarrier> sequenceBarrier;
   NoOpEventProcessor noOpEventProcessor;
 
   RingBufferTest()
@@ -113,7 +113,7 @@ TEST_F(RingBufferTest, shouldClaimAndGetWithSeparateThread) {
   const long toWaitForSequence = 0;
   std::vector<StubEvent> messages;
 
-  std::unique_ptr<ProcessingSequenceBarrier> sequenceBarrier = ringBuffer.newBarrier({});
+  std::unique_ptr<SequenceBarrier> sequenceBarrier = ringBuffer.newBarrier({});
 
   StubEvent expectedEvent(2701);
 
@@ -197,11 +197,11 @@ class TestEventProcessor
     : public EventProcessor
 {
  private:
-  ProcessingSequenceBarrier& sequenceBarrier_;
+  SequenceBarrier& sequenceBarrier_;
   Sequence sequence_;
 
  public:
-  TestEventProcessor(ProcessingSequenceBarrier& sequenceBarrier)
+  TestEventProcessor(SequenceBarrier& sequenceBarrier)
       : sequenceBarrier_(sequenceBarrier)
       , sequence_(Sequencer::INITIAL_CURSOR_VALUE)
   {}
@@ -228,7 +228,7 @@ TEST_F(RingBufferTest, shouldPreventPublishersOvertakingEventProcessorWrapPoint)
   BlockingWaitStrategy waitStrategy;
   RingBuffer<StubEvent> ringBuffer(claimStrategy, waitStrategy);
 
-  std::unique_ptr<ProcessingSequenceBarrier> sequenceBarrier = ringBuffer.newBarrier({});
+  std::unique_ptr<SequenceBarrier> sequenceBarrier = ringBuffer.newBarrier({});
 
   TestEventProcessor processor(*sequenceBarrier);
   ringBuffer.setGatingSequences({ &processor.getSequence() });

@@ -23,7 +23,7 @@
 #include "SingleThreadedClaimStrategy.hpp"
 #include "SleepingWaitStrategy.hpp"
 #include "BatchDescriptor.hpp"
-#include "ProcessingSequenceBarrier.hpp"
+#include "SequenceBarrier.hpp"
 #include "InsufficientCapacityException.hpp"
 
 #include "CountDownLatch.hpp"
@@ -106,7 +106,7 @@ TEST_F(SequencerTest, shouldPublishSequenceBatch) {
 }
 
 TEST_F(SequencerTest, shouldAwaitOnSequence) {
-  std::unique_ptr<ProcessingSequenceBarrier> barrier = sequencer.newBarrier({});
+  std::unique_ptr<SequenceBarrier> barrier = sequencer.newBarrier({});
   long sequence = sequencer.next();
   sequencer.publish(sequence);
 
@@ -114,7 +114,7 @@ TEST_F(SequencerTest, shouldAwaitOnSequence) {
 }
 
 TEST_F(SequencerTest, shouldWaitOnSequenceShowingBatchingEffect) {
-  std::unique_ptr<ProcessingSequenceBarrier> barrier = sequencer.newBarrier({});
+  std::unique_ptr<SequenceBarrier> barrier = sequencer.newBarrier({});
   sequencer.publish(sequencer.next());
   sequencer.publish(sequencer.next());
 
@@ -125,7 +125,7 @@ TEST_F(SequencerTest, shouldWaitOnSequenceShowingBatchingEffect) {
 }
 
 TEST_F(SequencerTest, shouldSignalWaitingProcessorWhenSequenceIsPublished) {
-  std::unique_ptr<ProcessingSequenceBarrier> barrier = sequencer.newBarrier({});
+  std::unique_ptr<SequenceBarrier> barrier = sequencer.newBarrier({});
   CountDownLatch waitingLatch(1);
   CountDownLatch doneLatch(1);
   const long expectedSequence = Sequencer::INITIAL_CURSOR_VALUE + 1L;

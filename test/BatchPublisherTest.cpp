@@ -25,7 +25,7 @@
 #include "SingleThreadedClaimStrategy.hpp"
 #include "SleepingWaitStrategy.hpp"
 #include "BatchDescriptor.hpp"
-#include "ProcessingSequenceBarrier.hpp"
+#include "SequenceBarrier.hpp"
 #include "InsufficientCapacityException.hpp"
 #include "NoOpEventProcessor.hpp"
 #include "RingBuffer.hpp"
@@ -47,7 +47,7 @@ struct BatchPublisherTest : public testing::Test {
   MultiThreadedClaimStrategy claimStrategy;
   BlockingWaitStrategy waitStrategy;
   RingBuffer<StubEvent> ringBuffer;
-  std::unique_ptr<ProcessingSequenceBarrier> sequenceBarrier;
+  std::unique_ptr<SequenceBarrier> sequenceBarrier;
   NoOpEventProcessor noOpEventProcessor;
 
   BatchPublisherTest()

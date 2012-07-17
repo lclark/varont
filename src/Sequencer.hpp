@@ -70,9 +70,9 @@ public:
    * @param sequencesToTrack this barrier will track
    * @return the barrier gated as required
    */
-  std::unique_ptr<ProcessingSequenceBarrier> newBarrier(std::vector<Sequence*>& sequencesToTrack);
+  std::unique_ptr<SequenceBarrier> newBarrier(std::vector<Sequence*>& sequencesToTrack);
 
-  std::unique_ptr<ProcessingSequenceBarrier> newBarrier(std::vector<Sequence*>&& sequencesToTrack);
+  std::unique_ptr<SequenceBarrier> newBarrier(std::vector<Sequence*>&& sequencesToTrack);
 
   /**
    * Create a new {@link BatchDescriptor} that is the minimum of the requested size

@@ -17,7 +17,7 @@
 
 #include "Sequencer.hpp"
 #include "BatchDescriptor.hpp"
-#include "ProcessingSequenceBarrier.hpp"
+#include "SequenceBarrier.hpp"
 #include "ProcessingSequenceBarrier.hpp"
 #include "Util.hpp"
 
@@ -33,14 +33,16 @@ void Sequencer::setGatingSequences(std::vector<Sequence*>&& sequences) {
   std::copy(sequences.begin(), sequences.end(), gatingSequences_.begin());
 }
 
-std::unique_ptr<ProcessingSequenceBarrier> Sequencer::newBarrier(std::vector<Sequence*>& sequencesToTrack) {
-  return std::unique_ptr<ProcessingSequenceBarrier>(
-    new ProcessingSequenceBarrier(waitStrategy_, cursor_, sequencesToTrack));
+std::unique_ptr<SequenceBarrier> Sequencer::newBarrier(std::vector<Sequence*>& sequencesToTrack) {
+  SequenceBarrier* sequenceBarrier = new ProcessingSequenceBarrier(
+    waitStrategy_, cursor_, sequencesToTrack);
+  return std::unique_ptr<SequenceBarrier>(sequenceBarrier);
 }
 
-std::unique_ptr<ProcessingSequenceBarrier> Sequencer::newBarrier(std::vector<Sequence*>&& sequencesToTrack) {
-  return std::unique_ptr<ProcessingSequenceBarrier>(
-    new ProcessingSequenceBarrier(waitStrategy_, cursor_, sequencesToTrack));
+std::unique_ptr<SequenceBarrier> Sequencer::newBarrier(std::vector<Sequence*>&& sequencesToTrack) {
+  SequenceBarrier* sequenceBarrier = new ProcessingSequenceBarrier(
+    waitStrategy_, cursor_, sequencesToTrack);
+  return std::unique_ptr<SequenceBarrier>(sequenceBarrier);
 }
 
 BatchDescriptor Sequencer::newBatchDescriptor(const int size) {

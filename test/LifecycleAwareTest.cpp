@@ -76,7 +76,7 @@ struct LifecycleAwareTest : public testing::Test {
   MultiThreadedClaimStrategy claimStrategy;
   BlockingWaitStrategy waitStrategy;
   RingBuffer<StubEvent> ringBuffer;
-  std::unique_ptr<ProcessingSequenceBarrier> sequenceBarrier;
+  std::unique_ptr<SequenceBarrier> sequenceBarrier;
   LifecycleAwareStubEventHandler handler;
   BatchEventProcessor<StubEvent> batchEventProcessor;
 
