@@ -64,12 +64,12 @@ struct BatchPublisherTest : public testing::Test {
 
 TEST_F(BatchPublisherTest, shouldClaimBatchAndPublishBack) {
   int batchSize = 5;
-  BatchDescriptor batchDescriptor = ringBuffer.newBatchDescriptor(batchSize);
+  std::unique_ptr<BatchDescriptor> batchDescriptor = ringBuffer.newBatchDescriptor(batchSize);
 
   ringBuffer.next(batchDescriptor);
 
-  ASSERT_EQ(0L, batchDescriptor.getStart());
-  ASSERT_EQ(4L, batchDescriptor.getEnd());
+  ASSERT_EQ(0L, batchDescriptor->getStart());
+  ASSERT_EQ(4L, batchDescriptor->getEnd());
   ASSERT_EQ((long)Sequencer::INITIAL_CURSOR_VALUE, ringBuffer.getCursor());
 
   ringBuffer.publish(batchDescriptor);

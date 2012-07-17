@@ -45,8 +45,10 @@ std::unique_ptr<SequenceBarrier> Sequencer::newBarrier(std::vector<Sequence*>&& 
   return std::unique_ptr<SequenceBarrier>(sequenceBarrier);
 }
 
-BatchDescriptor Sequencer::newBatchDescriptor(const int size) {
-  return BatchDescriptor(std::min(size, claimStrategy_.getBufferSize()));
+std::unique_ptr<BatchDescriptor> Sequencer::newBatchDescriptor(const int size) {
+  BatchDescriptor* batchDescriptor = new BatchDescriptor(
+    std::min(size, claimStrategy_.getBufferSize()));
+  return std::unique_ptr<BatchDescriptor>(batchDescriptor);
 }
 
 bool Sequencer::hasAvailableCapacity(const int availableCapacity) {
@@ -83,6 +85,10 @@ BatchDescriptor& Sequencer::next(BatchDescriptor& batchDescriptor) {
   return batchDescriptor;
 }
 
+BatchDescriptor& Sequencer::next(std::unique_ptr<BatchDescriptor>& batchDescriptor) {
+  return next(*batchDescriptor.get());
+}
+
 long Sequencer::claim(const long sequence) {
   if (gatingSequences_.empty()) {
     throw std::out_of_range("gatingSequences must be set before claiming sequences");
@@ -96,6 +102,10 @@ long Sequencer::claim(const long sequence) {
 
 void Sequencer::publish(BatchDescriptor& batchDescriptor) {
   publish(batchDescriptor.getEnd(), batchDescriptor.getSize());
+}
+
+void Sequencer::publish(std::unique_ptr<BatchDescriptor>& batchDescriptor) {
+  publish(batchDescriptor->getEnd(), batchDescriptor->getSize());
 }
 
 void Sequencer::forcePublish(const long sequence) {

@@ -81,7 +81,7 @@ public:
    * @param size for the batch
    * @return the new {@link BatchDescriptor}
    */
-  BatchDescriptor newBatchDescriptor(const int size);
+  std::unique_ptr<BatchDescriptor> newBatchDescriptor(const int size);
 
   /**
    * The capacity of the data structure to hold entries.
@@ -135,6 +135,12 @@ public:
    * @return the updated batchDescriptor.
    */
   BatchDescriptor& next(BatchDescriptor& batchDescriptor);
+  /**
+   * A variation of the previous accepting the type returned from newBatchDescriptor.
+   *
+   * @see BatchDescriptor& next(BatchDescriptor& batchDescriptor);
+   */
+  BatchDescriptor& next(std::unique_ptr<BatchDescriptor>& batchDescriptor);
 
   /**
    * Claim a specific sequence when only one publisher is involved.
@@ -159,6 +165,12 @@ public:
    * @param batchDescriptor to be published.
    */
   void publish(BatchDescriptor& batchDescriptor);
+  /**
+   * Variation of previous accepts return type of newBatchDescriptor.
+   *
+   * @see void publish(BatchDescriptor& batchDescriptor);
+   */
+  void publish(std::unique_ptr<BatchDescriptor>& batchDescriptor);
 
   /**
    * Force the publication of a cursor sequence.
